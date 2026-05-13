@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Стрелочный индикатор</title>
+    <style>
+        body {
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+
+            transition: background-color 0.4s ease; 
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            text-align: center;
+            width: 320px;
+        }
+
+        h3 {
+            margin-top: 0;
+            color: #333;
+        }
+
+        input[type=range] {
+            width: 100%;
+            margin: 20px 0 10px 0;
+            cursor: pointer;
+        }
+
+        datalist {
+            display: flex;
+            justify-content: space-between;
+            color: #888;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .keyboard {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .keyboard button {
+            padding: 15px;
+            font-size: 20px;
+            cursor: pointer;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #fafafa;
+            transition: background-color 0.2s;
+        }
+
+        .keyboard button:hover {
+            background-color: #e0e0e0;
+        }
+
+        .keyboard button.zero {
+            grid-column: span 3;
+            background-color: #eee;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h3>Уровень мощности</h3>
+        
+        <input type="range" id="indicator" min="0" max="9" step="1" value="0" list="markers">
+        
+        <datalist id="markers">
+            <option value="0" label="0"></option>
+            <option value="1" label="1"></option>
+            <option value="2" label="2"></option>
+            <option value="3" label="3"></option>
+            <option value="4" label="4"></option>
+            <option value="5" label="5"></option>
+            <option value="6" label="6"></option>
+            <option value="7" label="7"></option>
+            <option value="8" label="8"></option>
+            <option value="9" label="9"></option>
+        </datalist>
+
+        <div class="keyboard">
+            <button onclick="updateIndicator(1)">1</button>
+            <button onclick="updateIndicator(2)">2</button>
+            <button onclick="updateIndicator(3)">3</button>
+            <button onclick="updateIndicator(4)">4</button>
+            <button onclick="updateIndicator(5)">5</button>
+            <button onclick="updateIndicator(6)">6</button>
+            <button onclick="updateIndicator(7)">7</button>
+            <button onclick="updateIndicator(8)">8</button>
+            <button onclick="updateIndicator(9)">9</button>
+            <button class="zero" onclick="updateIndicator(0)">0</button>
+        </div>
+    </div>
+
+    <script>
+        // Находим наш ползунок
+        const indicator = document.getElementById('indicator');
+
+        function updateIndicator(value) {
+
+            indicator.value = value;
+ 
+            checkValue(value);
+        }
+
+        function checkValue(val) {
+            if (val > 5) {
+                document.body.style.backgroundColor = '#ff4c4c';
+            } else {
+                document.body.style.backgroundColor = '#f4f4f9';
+            }
+        }
+
+        indicator.addEventListener('input', function(event) {
+            const currentValue = parseInt(event.target.value);
+            checkValue(currentValue);
+        });
+    </script>
+
+</body>
+</html>

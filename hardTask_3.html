@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Генератор титульного листа</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .form-container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            width: 450px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-top: 0;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+
+        .btn-generate {
+            width: 100%;
+            padding: 12px;
+            background-color: #0056b3;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 10px;
+        }
+
+        .btn-generate:hover {
+            background-color: #004494;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="form-container">
+        <h2>Данные для отчета</h2>
+        
+        <div class="input-group">
+            <label for="department">Кафедра:</label>
+            <input type="text" id="department" placeholder="Например: КСУ">
+        </div>
+
+        <div class="input-group">
+            <label for="discipline">Дисциплина:</label>
+            <input type="text" id="discipline" placeholder="Например: Программирование и алгоритмизация">
+        </div>
+        
+        <div class="input-group">
+            <label for="group">Группа:</label>
+            <input type="text" id="group" placeholder="Например: АДБ-21-06">
+        </div>
+        
+        <div class="input-group">
+            <label for="student">ФИО студента:</label>
+            <input type="text" id="student" placeholder="Например: Иванов И.И.">
+        </div>
+        
+        <div class="input-group">
+            <label for="teacher">ФИО преподавателя:</label>
+            <input type="text" id="teacher" placeholder="Например: Иванов И.И.">
+        </div>
+
+        <button class="btn-generate" onclick="generateTitlePage()">Сгенерировать титульный лист</button>
+    </div>
+
+    <script>
+        function generateTitlePage() {
+            // Сбор данных из всех полей
+            const department = document.getElementById('department').value;
+            const discipline = document.getElementById('discipline').value; 
+            const group = document.getElementById('group').value;
+            const student = document.getElementById('student').value;
+            const teacher = document.getElementById('teacher').value;
+
+            const titlePageHTML = `
+                <!DOCTYPE html>
+                <html lang="ru">
+                <head>
+                    <meta charset="UTF-8">
+                    <title>Титульный лист</title>
+                    <style>
+                        body {
+                            font-family: "Times New Roman", Times, serif;
+                            font-size: 14pt;
+                            line-height: 1.5;
+                            margin: 1cm 1.5cm 2cm 3cm; 
+                            color: #000;
+                        }
+                        .logo-container {
+                            text-align: center;
+                            margin-bottom: 20px;
+                        }
+                        .logo-container img {
+                            max-width: 200px; 
+                            height: auto;
+                        }
+                        .header {
+                            text-align: center;
+                            margin-bottom: 40px;
+                            text-transform: uppercase;
+                            font-size: 12pt;
+                        }
+                        .title-block {
+                            text-align: center;
+                            margin-top: 60px;
+                            margin-bottom: 60px;
+                        }
+                        .info-block {
+                            width: 45%;
+                            margin-left: 55%; 
+                            text-align: left;
+                        }
+                        .footer {
+                            text-align: center;
+                            margin-top: 100px;
+                        }
+                        h2 { font-size: 16pt; margin-bottom: 10px; }
+                    </style>
+                </head>
+                <body>
+                    <div class="logo-container">
+                        <img src="logo.png" alt="Логотип">
+                    </div>
+
+                    <div class="header">
+                        <b>МИНОБРНАУКИ РОССИИ</b><br>
+                        <b>Федеральное государственное автономное образовательное учреждение</b><br>
+                        <b>высшего образования</b><br>
+                        <b>«Московский государственный технологический университет</b><br>
+                        <b>«СТАНКИН»</b><br>
+                        <b>(ФГАОУ ВО «МГТУ «СТАНКИН»)</b><br>
+                        <br>
+                        Институт цифровых интеллектуальных систем<br>
+                        Кафедра ${department}<br>
+                        <br>
+                        <br>
+                        <br>
+                        Образовательная программа 15.03.04<br>
+                        «Автоматизация технологических процессов и производств»<br>
+                        <br>
+                        Дисциплина<br>
+                        «${discipline}»<br>
+                    </div>
+
+                    <div class="title-block">
+                        <h2>ОТЧЕТ</h2>
+                        <p>по лабораторной работе № ___</p>
+                    </div>
+
+                    <div class="info-block">
+                        <p><b>Выполнил:</b> студент группы ${group}</p>
+                        <p>${student} _________________</p>
+                        <br>
+                        <p><b>Проверил:</b> к.т.н., доцент </p>
+                        <p>${teacher} _________________</p>
+                    </div>
+
+                    <div class="footer">
+                        Москва, 2026
+                    </div>
+                </body>
+                </html>
+            `;
+
+            const newWindow = window.open('', '_blank');
+            newWindow.document.write(titlePageHTML);
+            newWindow.document.close(); 
+        }
+    </script>
+</body>
+</html>
